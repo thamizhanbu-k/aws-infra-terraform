@@ -13,37 +13,34 @@ graph TD
         
         subgraph Custom_VPC [Custom VPC - 10.0.0.0/16]
             ALB -->|Routes Port 80 to 8080| TargetGroup[ALB Target Group]
+            TargetGroup ==> ASG[Auto Scaling Group]
             
             subgraph AZ_A [Availability Zone: ap-south-1a]
                 SubnetA[Public Subnet A - 10.0.1.0/24]
-                ASG_A[Auto Scaling Group]
                 EC2_A((EC2 Instance: t3.micro))
                 
-                SubnetA --- ASG_A
-                ASG_A --- EC2_A
+                SubnetA --- EC2_A
                 
                 subgraph Docker_Net_A [Docker Custom Network]
-                    App_A(Flask App Container) <-->|cache| Redis_A(Redis Container)
+                    App_A(Flask App) <-->|cache| Redis_A(Redis)
                 end
                 EC2_A -.-> Docker_Net_A
             end
             
             subgraph AZ_B [Availability Zone: ap-south-1b]
                 SubnetB[Public Subnet B - 10.0.2.0/24]
-                ASG_B[Auto Scaling Group]
                 EC2_B((EC2 Instance: t3.micro))
                 
-                SubnetB --- ASG_B
-                ASG_B --- EC2_B
+                SubnetB --- EC2_B
                 
                 subgraph Docker_Net_B [Docker Custom Network]
-                    App_B(Flask App Container) <-->|cache| Redis_B(Redis Container)
+                    App_B(Flask App) <-->|cache| Redis_B(Redis)
                 end
                 EC2_B -.-> Docker_Net_B
             end
             
-            TargetGroup ==> ASG_A
-            TargetGroup ==> ASG_B
+            ASG -.->|Provisions & Balances| EC2_A
+            ASG -.->|Provisions & Balances| EC2_B
         end
         
         S3[(Amazon S3)] -.->|Stores terraform.tfstate| Terraform_Backend
