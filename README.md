@@ -83,15 +83,13 @@ This project utilizes a zero-touch provisioning strategy. When the Auto Scaling 
 6. Injects runtime environment variables and launches the Flask app, linking it to the Redis container via Docker's internal DNS.
 
 ## 📊 Sample Terraform Output
-
-## 📊 Sample Terraform Output
 ```text
 Apply complete! Resources: 17 added, 0 changed, 0 destroyed.
 
 Outputs:
 
 alb_dns_name = "network-health-monitor-alb-173752307.ap-south-1.elb.amazonaws.com"
-app_url = "[http://network-health-monitor-alb-173752307.ap-south-1.elb.amazonaws.com/health](http://network-health-monitor-alb-173752307.ap-south-1.elb.amazonaws.com/health)"
+app_url = "http://network-health-monitor-alb-173752307.ap-south-1.elb.amazonaws.com/health"
 asg_name = "network-health-monitor-asg"
 subnet_ids = [
   "subnet-0197e63ab657067ff",
