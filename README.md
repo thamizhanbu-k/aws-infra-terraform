@@ -75,7 +75,7 @@ graph TD
 
 This project utilizes a zero-touch provisioning strategy. When the Auto Scaling Group launches a new EC2 instance, the attached `userdata.sh` script executes the following automated workflow:
 
-1. Updates the underlying Amazon Linux 2 OS packages.
+1. Updates the underlying Amazon Linux 2023 OS packages.
 2. Installs and starts the Docker daemon.
 3. Creates a custom, isolated Docker network (`app-network`).
 4. Pulls and runs the `redis:alpine` container.
