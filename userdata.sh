@@ -2,8 +2,8 @@
 # userdata.sh — runs as root on EC2 first start
 
 # Update and install Docker
-yum update -y
-amazon-linux-extras install docker -y
+dnf update -y
+dnf install -y docker
 service docker start
 usermod -a -G docker ec2-user
 systemctl enable docker
